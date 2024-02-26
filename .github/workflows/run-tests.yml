@@ -10,10 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: apt-update
-      run: sudo apt update
-    - name: install prereqs
-      run: sudo apt install libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
+    - uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
     - name: format-check
       run: ./format-check.sh
 
@@ -70,9 +69,5 @@ jobs:
     - uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
-    # - name: apt update
-    #   run: sudo apt update
-    # - name: install prereqs
-    #   run: sudo apt install libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
     - name: make ${{ matrix.target }}
       run: make ${{ matrix.target }}
