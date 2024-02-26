@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-      with:
-        path: /mnt/splinterdb
+    - run: cp -a ${{ github.workspace }}/splinterdb /mnt 
     - name: apt-update
       run: sudo apt update
     - name: install prereqs
