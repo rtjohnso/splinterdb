@@ -4,10 +4,6 @@ name: Splinter Tests
 on:
   pull_request:
 
-defaults:
- run:
-  working-directory: /mnt/splinterdb
-
 jobs:
 
   format-check:
@@ -20,6 +16,7 @@ jobs:
     - name: install prereqs
       run: sudo apt install libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
     - name: format-check
+      working-directory: /mnt/splinterdb
       run: ./format-check.sh
 
   run-test-matrix:
@@ -72,8 +69,7 @@ jobs:
     #     remove-codeql: true
     #     remove-docker-images: false
     - uses: actions/checkout@v4
-      with:
-        path: /mnt/splinterdb
+    - run: cp -a ${{ github.workspace }}/splinterdb /mnt 
     # - uses: awalsh128/cache-apt-pkgs-action@latest
     #   with:
     #     packages: libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
@@ -86,4 +82,5 @@ jobs:
     - name: install prereqs
       run: sudo apt install libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
     - name: make ${{ matrix.target }}
+      working-directory: /mnt/splinterdb
       run: make ${{ matrix.target }}
