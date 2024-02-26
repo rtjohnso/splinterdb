@@ -71,7 +71,9 @@ jobs:
     #   with:
     #     packages: libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
     - name: Print disk space
-      run: df -h
+      run: |
+        pwd
+        df -h
     - name: apt update
       run: sudo apt update
     - name: install prereqs
