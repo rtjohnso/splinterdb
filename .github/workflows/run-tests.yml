@@ -9,7 +9,7 @@ jobs:
   format-check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: apt-update
       run: sudo apt update
     - name: install prereqs
@@ -56,7 +56,7 @@ jobs:
       BUILD_MSAN: ${{ endsWith(matrix.compiler_mode, 'msan') && 1 || 0 }}
       INCLUDE_SLOW_TESTS: true
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     # - uses: awalsh128/cache-apt-pkgs-action@latest
     #   with:
     #     packages: libxxhash-dev libaio-dev libconfig-dev gcc clang-13 clang-format-13
